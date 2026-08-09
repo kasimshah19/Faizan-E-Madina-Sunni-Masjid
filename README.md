@@ -29,10 +29,11 @@
 
 The application is deployed across high-availability cloud infrastructure and is accessible via the links below:
 
-| Application Layer | Environment | Technology | Live URL |
+| Application Layer | Environment | Technology | Access / Live URL |
 | :--- | :--- | :--- | :--- |
 | **Frontend Platform** | Production | Vercel (React Spa) | 🔗 [https://faizan-e-madina-sunni-masjid.vercel.app](https://faizan-e-madina-sunni-masjid.vercel.app) |
 | **Backend REST API** | Production | Render.com (Node.js) | 🔗 [https://faizan-e-madina-sunni-masjid.onrender.com](https://faizan-e-madina-sunni-masjid.onrender.com) |
+| **Database Cluster** | Production | MongoDB Atlas | 🔒 *Secure Cloud Deployment (No public access)* |
 
 > **Note:** The backend is hosted on a free Render instance and spins down after 15 minutes of inactivity. The initial API call upon opening the frontend may experience a ~50-second cold start delay.
 
