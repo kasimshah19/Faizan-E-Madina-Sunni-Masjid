@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* ============================
+   CSS Custom Properties
+   ============================ */
+:root {
+    --color-primary: #0F5132;
+    --color-primary-light: #1B7A4D;
+    --color-background: #FAF7F0;
+    --color-surface: #FFFFFF;
+    --color-surface-alt: #F3EFE4;
+    --color-text-primary: #1A1A1A;
+    --color-text-secondary: #5C5C5C;
+    --color-border: #E5DFCF;
+    --color-accent: #C9A227;
+}
+
+.dark {
+    --color-primary: #1B7A4D;
+    --color-primary-light: #28A366;
+    --color-background: #0D1210;
+    --color-surface: #161C19;
+    --color-surface-alt: #1E2622;
+    --color-text-primary: #F5F2E8;
+    --color-text-secondary: #B5B0A0;
+    --color-border: #2A342F;
+    --color-accent: #D9B84A;
+}
+
+/* ============================
+   Base Styles
+   ============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================
+   Glassmorphism Utility
+   ============================ */
+.glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+    background: rgba(22, 28, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================
+   Scrollbar Styling
+   ============================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-surface-alt);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-light);
+}
+
+/* ============================
+   Selection Color
+   ============================ */
+::selection {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+/* ============================
+   Hero Overlay Utility
+   ============================ */
+.hero-overlay {
+    position: relative;
+}
+
+.hero-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right,
+            rgba(10, 61, 38, 0.85) 0%,
+            rgba(10, 61, 38, 0.6) 45%,
+            rgba(10, 61, 38, 0.25) 75%,
+            rgba(10, 61, 38, 0.1) 100%);
+    z-index: 1;
+}
+
+.hero-overlay>* {
+    position: relative;
+    z-index: 2;
+}
