@@ -176,11 +176,16 @@ The system leverages **MongoDB (NoSQL)** but enforces strict referential integri
 
 ## 🧑‍💻 Core Engineering Team
 
-This highly scalable infrastructure was engineered by a specialized dynamic team:
+The architecture, development, and deployment of this enterprise-grade infrastructure were executed by a specialized engineering team. **Roles were strictly delineated** to ensure robust system design and modern UI/UX practices:
 
-* **[Kasim Shah](https://github.com/kasimshah19)** ➔ `Backend Infrastructure, System Design & Database Architecture`
-* **[Ammar Shaikh](https://github.com/Ammarsk22)** ➔ `Frontend Architecture, React SPA & UI Engineering`
-* **[Mohammad Sohel](https://github.com/m-sohel)** ➔ `Frontend Architecture, React SPA & UI Engineering`
+* 👑 **[Kasim Shah (Lead Backend Engineer)](https://github.com/kasimshah19)**  
+  ➔ **Core Responsibilities:** Node.js/Express API Engineering, Relational NoSQL Database Architecture, Enterprise System Design, Authentication & Security (JWT/RBAC), Cloud Deployment, and Comprehensive End-to-End Testing.
+
+* 💻 **[Ammar Shaikh (Frontend Engineer)](https://github.com/Ammarsk22)**  
+  ➔ **Core Responsibilities:** React.js Single Page Application (SPA) Development, State Management, and Tailwind CSS Design Implementation.
+
+* 💻 **[Mohammad Sohel (Frontend Engineer)](https://github.com/m-sohel)**  
+  ➔ **Core Responsibilities:** UI/UX Component Engineering, Responsive Web Layouts, and API Integration on the Client-side.
 
 ---
 > *Architected to push community-driven technology standards to enterprise-grade heights.*
