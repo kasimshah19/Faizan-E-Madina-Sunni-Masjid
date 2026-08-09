@@ -25,6 +25,19 @@
 
 ---
 
+## 🌐 Live Deployment Access
+
+The application is deployed across high-availability cloud infrastructure and is accessible via the links below:
+
+| Application Layer | Environment | Technology | Live URL |
+| :--- | :--- | :--- | :--- |
+| **Frontend Platform** | Production | Vercel (React Spa) | 🔗 [https://faizan-e-madina-sunni-masjid.vercel.app](https://faizan-e-madina-sunni-masjid.vercel.app) |
+| **Backend REST API** | Production | Render.com (Node.js) | 🔗 [https://faizan-e-madina-sunni-masjid.onrender.com](https://faizan-e-madina-sunni-masjid.onrender.com) |
+
+> **Note:** The backend is hosted on a free Render instance and spins down after 15 minutes of inactivity. The initial API call upon opening the frontend may experience a ~50-second cold start delay.
+
+---
+
 ## 📖 Executive Overview
 
 Traditional mosque administration relies heavily on manual ledgers and fragmented communication channels. The **Faizan E Madina Management System** solves this by providing a unified, centralized SaaS-like ecosystem. It acts as a digital headquarters—empowering administrators, enabling financial transparency for donors, and streamlining the educational tracking of students within the Madrasa. 
