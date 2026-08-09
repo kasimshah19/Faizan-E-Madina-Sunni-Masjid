@@ -165,8 +165,8 @@ The system leverages **MongoDB (NoSQL)** but enforces strict referential integri
 This highly scalable infrastructure was engineered by a specialized dynamic team:
 
 * **[Kasim Shah](https://github.com/kasimshah19)** ➔ `Backend Infrastructure, System Design & Database Architecture`
-* **Ammar Shaikh** ➔ `Frontend Architecture, React SPA & UI Engineering`
-* **Mohammad Sohel** ➔ `Frontend Architecture, React SPA & UI Engineering`
+* **[Ammar Shaikh](https://github.com/Ammarsk22)** ➔ `Frontend Architecture, React SPA & UI Engineering`
+* **[Mohammad Sohel](https://github.com/m-sohel)** ➔ `Frontend Architecture, React SPA & UI Engineering`
 
 ---
 > *Architected to push community-driven technology standards to enterprise-grade heights.*
