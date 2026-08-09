@@ -176,16 +176,13 @@ The system leverages **MongoDB (NoSQL)** but enforces strict referential integri
 
 ## 🧑‍💻 Core Engineering Team
 
-The architecture, development, and deployment of this enterprise-grade infrastructure were executed by a specialized engineering team. **Roles were strictly delineated** to ensure robust system design and modern UI/UX practices:
+The architecture, development, and deployment of this enterprise-grade infrastructure were executed by a specialized engineering team. Roles were strictly delineated to ensure robust system design and maintain modern software engineering practices.
 
-* 👑 **[Kasim Shah (Lead Backend Engineer)](https://github.com/kasimshah19)**  
-  ➔ **Core Responsibilities:** Node.js/Express API Engineering, Relational NoSQL Database Architecture, Enterprise System Design, Authentication & Security (JWT/RBAC), Cloud Deployment, and Comprehensive End-to-End Testing.
-
-* 💻 **[Ammar Shaikh (Frontend Engineer)](https://github.com/Ammarsk22)**  
-  ➔ **Core Responsibilities:** React.js Single Page Application (SPA) Development, State Management, and Tailwind CSS Design Implementation.
-
-* 💻 **[Mohammad Sohel (Frontend Engineer)](https://github.com/m-sohel)**  
-  ➔ **Core Responsibilities:** UI/UX Component Engineering, Responsive Web Layouts, and API Integration on the Client-side.
+| Team Member | Engineering Role | Core Responsibilities & Technical Scope |
+| :--- | :--- | :--- |
+| **[Kasim Shah](https://github.com/kasimshah19)** | **Lead Backend Engineer & System Architect** | Engineered the Node.js/Express.js REST API, modeled the complex relational NoSQL database schema (MongoDB), implemented enterprise-grade security and stateless authentication (JWT/RBAC), orchestrated cloud deployments (AWS/Render/Vercel), and conducted comprehensive end-to-end endpoint testing. |
+| **[Ammar Shaikh](https://github.com/Ammarsk22)** | Frontend Engineer | Developed the React.js Single Page Application (SPA), configured robust global client-side state management, and executed the custom prop-driven design system leveraging Tailwind CSS. |
+| **[Mohammad Sohel](https://github.com/m-sohel)** | Frontend Engineer | Engineered highly responsive UI/UX web layouts, optimized Cross-Browser rendering methodologies (CLS optimization), and handled seamless client-to-server REST API integrations. |
 
 ---
 > *Architected to push community-driven technology standards to enterprise-grade heights.*
