@@ -1,68 +1,79 @@
 <div align="center">
-  <h1>🕌 Faizan E Madina Sunni Masjid</h1>
-  <h3>Enterprise-Grade Smart Mosque Management System</h3>
-  <p>A comprehensive, full-stack MERN platform designed to digitize and streamline mosque operations, madrasa administration, and community engagement.</p>
+  <h1>🕌 Faizan-E-Madina : Smart Mosque Management System</h1>
+  <h3>An Enterprise-Grade SaaS Architecture for Modern Islamic Centers</h3>
+  <p>A comprehensive, full-stack MERN platform designed to digitize and streamline mosque operations, madrasa administration, financial auditing, and community engagement at scale.</p>
 
-  <div>
-    <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" />
-    <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
-    <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express.js" />
+  <p>
+    <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+    <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node" />
+    <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
     <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
-    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-  </div>
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+    <img src="https://img.shields.io/badge/JWT_Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT" />
+  </p>
 </div>
 
 ---
 
-## 📖 Overview
+## 📖 Executive Summary
 
-The **Faizan E Madina Management System** is a modern, scalable web application built to bring traditional mosque administration into the digital age. Moving away from manual ledgers, this platform provides role-based, secure digital environments for the Committee, Volunteers, Instructors, and Community Members. 
+The **Faizan-E-Madina Management System** represents a paradigm shift in traditional Islamic center administration. Built with modern scalability in mind, this platform transitions manual, paper-based ledgers to a highly secure, role-based digital ecosystem. From automated financial receipt generation to real-time academic tracking for Madrasa students, this repository encapsulates a fully-featured, production-ready enterprise suite.
 
-From automated prayer countdowns and receipt generation to complex madrasa student tracking, this repository represents a complete enterprise ecosystem for Islamic center management.
+## 🏛️ System Architecture
 
-## ✨ Key Features
+The overarching architecture follows a decoupled, monolithic repository pattern separating the Client SPA from the RESTful Node instance, communicating strictly via stateless authentication protocols.
 
-### 🛡️ Secure & Role-Based Workflows
-* **Robust Authentication:** JWT-based authentication coupled with OTP verification for enhanced security.
-* **Granular RBAC:** Distinct, protected dashboard ecosystems for `Admins`, `Committee Members`, `Volunteers`, and `Regular Members`.
+```mermaid
+graph TD;
+    Client[React 19 + Vite Frontend] -->|HTTPS / REST API| Gateway[Express Router];
+    Gateway --> Auth[Auth Middleware / JWT];
+    Auth --> Controllers[Business Logic Controllers];
+    Controllers --> Models[Mongoose ODM / Models];
+    Models --> DB[(MongoDB Atlas)];
+    Controllers --> Services[Services: Cloudinary, PDFKit, Nodemailer];
+```
 
-### 🏢 Core Mosque Operations
-* **Financial Transparency:** Comprehensive donation tracking with automated PDF receipt generation (PDFKit).
-* **Event Management:** Curate and accept registrations for mosque events, seminars, and community gatherings.
-* **Prayer Intel:** Real-time, dynamic prayer timings and Jamaat countdown widgets.
+## ✨ Enterprise Features
 
-### 📚 Madrasa Management Module
-* **Academic Tracking:** End-to-end tracking of Madrasa courses, respective teachers, and student enrollments.
-* **Certification:** System-generated graduation and participation certificates for students.
+### 🔐 Security & Identity Access Management (IAM)
+- **Zero-Trust JWT Auth:** Stateless access token issuance with extensible HttpOnly secure cookie refresh flow capability.
+- **Granular RBAC:** Distinct protected dashboard layers for `SuperAdmin`, `Committee Member`, `Volunteer`, and `General User`.
 
-### 💻 Developer Experience (DX)
-* **Design System Driven:** Features a custom, reusable UI component library built on top of Tailwind CSS for extreme visual consistency.
-* **RESTful Architecture:** 19 modular backend mongoose schemas exposed via secure, localized API endpoints.
+### 🕌 Financial & Operational Automation
+- **Digital Ledger & Audit Trails:** Real-time tracking of community donations, automated PDF generation (via PDFKit) for donor receipts, and integrated ledger auditing.
+- **Dynamic Event Horizons:** CRUD-based event management, ticketing, community RSVP capability, and automated prayer-timing countdown webhooks.
 
----
+### 📚 EdTech Module (Madrasa Administration)
+- **Academic Ecosystem:** Complete mapping of Courses -> Instructors -> Students.
+- **Performance & Certification:** Integrated grading modules and automated system-generated graduation certificates.
 
-## 🛠️ Technology Stack
-
-**Client Architecture (Frontend):**
-- **Core:** React 19, Vite
-- **Styling:** Tailwind CSS (Custom Islamic aesthetic tokens)
-- **State/Data:** Redux, Axios Interceptors (Silent refresh)
-
-**Server Architecture (Backend):**
-- **Core:** Node.js, Express.js
-- **Database:** MongoDB (Mongoose Object Modeling)
-- **Security:** JSON Web Tokens (JWT), Express-Validator
-- **Utilities:** Cloudinary (Asset Storage), PDFKit (Document Generation)
+### 💻 Engineering & DX
+- **Design System Architecture:** Modular, prop-driven custom UI component library built entirely on Tailwind CSS to enforce extreme visual consistency.
+- **Data Hydration:** Architecture primed for global state management structures, prepared for edge-caching and optimistic UI updates.
 
 ---
 
-## ⚙️ Getting Started
+## 🛠️ Technical Specifications
+
+### Component Breakdown
+| Layer | Technology | Purpose |
+| ------ | ----------- | ----------- |
+| **Frontend** | React 19, Vite, Tailwind CSS | High-performance SPA, Custom Islamic-Themed UI library |
+| **Backend** | Node.js, Express.js | Non-blocking I/O event-driven highly scalable REST API |
+| **Database** | MongoDB, Mongoose | NoSQL flexible schema modeling (19 normalized collections) |
+| **Security** | bcryptjs, jsonwebtoken | Cryptographic hashing and secure payload transmission |
+| **Integrations** | Cloudinary, PDFKit | CDN asset management and server-side PDF buffering |
+
+---
+
+## ⚙️ Development Environment
 
 ### Prerequisites
-* Node.js (v18 or higher)
-* MongoDB database instance (Local or Atlas Atlas)
+- Node.js (v18.x.x LTS or higher)
+- MongoDB Database cluster (Local or Atlas)
+- Git CLI
 
-### Installation
+### Local Setup
 
 1. **Clone the repository:**
    ```bash
@@ -70,34 +81,29 @@ From automated prayer countdowns and receipt generation to complex madrasa stude
    cd Faizan-E-Madina-Sunni-Masjid
    ```
 
-2. **Install all dependencies** (This script installs both client and server packages):
+2. **Install Dependencies:**
    ```bash
    npm run install:all
    ```
 
-3. **Configure Environment Variables:**
-   - Navigate to both `/client` and `/server` directories.
-   - Duplicate the `.env.example` files and rename them to `.env`.
-   - Populate the required credentials (MongoDB URI, JWT Secrets, etc.).
+3. **Environment Configuration:**
+   Create `.env` files in both `/client` and `/server` respectively matching their `.env.example` configurations. Minimum configurations include:
+   - `MONGO_URI`
+   - `JWT_SECRET`
+   - `PORT=5000`
 
-4. **Boot up the development environment:**
+4. **Initialize Boot Sequence:**
    ```bash
    npm run dev
    ```
-   *The server will initialize on `PORT 5000` and the React frontend on `localhost:5173`.*
+   *The Express backend initializes strictly on PORT 5000; Vite HMR handles the frontend on localhost:5173.*
 
 ---
 
-## 🤝 Contribution Structure
+## 🧑‍💻 Core Engineering Team
 
-This project is actively developed by a specialized team:
-- **Backend & System Architecture:** [Kasim Shah (kasimshah19)](https://github.com/kasimshah19)
-- **Frontend & UI Engineering:** Ammar Shaikh & Mohammad Sohel
+This highly-scalable web application is architected and engineered by:
+- **Backend Infrastructure & System Design:** [Kasim Shah (kasimshah19)](https://github.com/kasimshah19)
+- **Frontend & UI/UX Engineering:** Ammar Shaikh & Mohammad Sohel
 
-*To contribute, please create a new feature branch from `main`, implement your changes, and submit a detailed Pull Request (PR).*
-
----
-
-<div align="center">
-  <i>"Building for the community, with the community."</i>
-</div>
+*Built with passion to push community technology standards to enterprise levels.*
