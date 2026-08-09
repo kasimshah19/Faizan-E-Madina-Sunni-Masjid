@@ -1,109 +1,172 @@
 <div align="center">
-  <h1>🕌 Faizan-E-Madina : Smart Mosque Management System</h1>
-  <h3>An Enterprise-Grade SaaS Architecture for Modern Islamic Centers</h3>
-  <p>A comprehensive, full-stack MERN platform designed to digitize and streamline mosque operations, madrasa administration, financial auditing, and community engagement at scale.</p>
+  <img src="https://raw.githubusercontent.com/kasimshah19/Faizan-E-Madina-Sunni-Masjid/main/client/public/favicon.ico" alt="Faizan E Madina Logo" width="100" style="border-radius: 50%; border: 3px solid #38B2AC; padding: 5px; margin-bottom: 15px;" />
+  
+  <h1>🕌 Faizan E Madina Management System</h1>
+  <h3>An Enterprise-Grade, Full-Stack Mosque & Madrasa Administration Platform</h3>
+  
+  <p align="center">
+    A highly scalable, robust <b>MERN Stack</b> application engineered to modernize Islamic center operations, digitize financial ledgers, automate academic management, and facilitate seamless community engagement.
+  </p>
 
-  <p>
-    <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-    <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node" />
-    <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <p align="center">
+    <!-- Frontend -->
+    <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+    <!-- Backend -->
+    <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+    <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
+    <!-- Database -->
     <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
-    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
-    <img src="https://img.shields.io/badge/JWT_Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT" />
+    <!-- Tooling -->
+    <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+    <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT" />
   </p>
 </div>
 
 ---
 
-## 📖 Executive Summary
+## 📖 Executive Overview
 
-The **Faizan-E-Madina Management System** represents a paradigm shift in traditional Islamic center administration. Built with modern scalability in mind, this platform transitions manual, paper-based ledgers to a highly secure, role-based digital ecosystem. From automated financial receipt generation to real-time academic tracking for Madrasa students, this repository encapsulates a fully-featured, production-ready enterprise suite.
+Traditional mosque administration relies heavily on manual ledgers and fragmented communication channels. The **Faizan E Madina Management System** solves this by providing a unified, centralized SaaS-like ecosystem. It acts as a digital headquarters—empowering administrators, enabling financial transparency for donors, and streamlining the educational tracking of students within the Madrasa. 
+
+This repository demonstrates the capacity to architect complex, relational data flows within a NoSQL environment, coupled with a highly performant, custom-designed React frontend.
+
+---
+
+## 🚀 Comprehensive Feature Matrix
+
+### 🔐 1. Identity & Access Management (IAM)
+- **Role-Based Access Control (RBAC):** Distinct permission hierarchies supporting `SuperAdmin`, `Committee Member`, `Volunteer`, and `Verified Member` roles.
+- **Stateless Authentication:** Secure JWT (JSON Web Token) implementation featuring automatic Axios interceptor token refresh cycles.
+- **Session Security:** Multi-layered route protection, bruted-force protection logic, and OTP-based verification hooks.
+
+### 💰 2. Financial Automation & Auditing
+- **Donation Gateway Tracking:** End-to-end tracking of Zakat, Sadaqah, and general mosque donations.
+- **Automated Document Generation:** Server-side PDF generation (powered by `PDFKit`) creating downloadable, verifiable transaction receipts for donors.
+- **Data Integrity:** Write-once, append-only systemic Audit Logs mapping all financial actions back to the user invoking them.
+
+### 🎓 3. EdTech: Madrasa Administration
+- **Academic Hierarchy:** A deeply relational architecture linking `Madrasas` ➔ `Courses` ➔ `Teachers` ➔ `Students`.
+- **Performance Metrics:** Grading functionality and attendance tracking.
+- **Graduation Engine:** Automated completion certificate generation upon course finalization.
+
+### 🕌 4. Community & Operational Tooling
+- **Dynamic Prayer API:** Real-time Jamaat and Azan timing configuration via the Admin panel, feeding a live countdown widget on the public frontend.
+- **Event Orchestration:** Full CRUD capabilities for community events, tracking user RSVPs, and capacity-limited registrations.
+- **Communication Hub:** Announcement dispatch system and contact query management.
+
+### 💻 5. Custom Design System
+- **Prop-Driven Architecture:** A completely bespoke UI library built with Tailwind CSS. Includes reusable `Buttons`, `DataCards`, `Modals`, `DataTables`, `Skeletons`, and `Progress Indicators`.
+- **Responsive PWA-ready Layout:** Fluid layouts scaling from 4K desktop to legacy mobile viewports with zero layout shifts (CLS optimized).
+
+---
 
 ## 🏛️ System Architecture
 
-The overarching architecture follows a decoupled, monolithic repository pattern separating the Client SPA from the RESTful Node instance, communicating strictly via stateless authentication protocols.
+The application strictly adheres to the **Client-Server architecture**, keeping the frontend presentation logic distinctly decoupled from the backend business logic.
 
 ```mermaid
 graph TD;
-    Client[React 19 + Vite Frontend] -->|HTTPS / REST API| Gateway[Express Router];
-    Gateway --> Auth[Auth Middleware / JWT];
-    Auth --> Controllers[Business Logic Controllers];
-    Controllers --> Models[Mongoose ODM / Models];
-    Models --> DB[(MongoDB Atlas)];
-    Controllers --> Services[Services: Cloudinary, PDFKit, Nodemailer];
+    %% Frontend Block
+    subgraph Frontend [React SPA / Vite]
+        UI[Custom Tailwind Components] --> Views[Protected Dashboards];
+        Views --> Redux[Client State / Redux];
+        Redux --> Axios[Axios Interceptors];
+    end
+
+    %% Network
+    Axios -- "HTTP/REST (Token Bearer)" --> Gateway
+
+    %% Backend Block
+    subgraph Backend [Node.js / Express API]
+        Gateway[Express Router] --> AuthM[Auth Middleware];
+        AuthM --> Controllers[Business Logic Controllers];
+        Controllers --> Validators[Data Validation / Express-Validator];
+        
+        %% Core Utilities
+        Controllers -.-> PDF[PDFKit Generator];
+        Controllers -.-> Mail[Nodemailer / OTP];
+        Controllers -.-> Storage[Cloudinary Asset Uploads];
+    end
+
+    %% Database
+    subgraph Database [MongoDB Atlas]
+        Validators --> ODM[Mongoose ODM];
+        ODM --> Collections[(19 Relational Collections)];
+    end
 ```
 
-## ✨ Enterprise Features
+---
 
-### 🔐 Security & Identity Access Management (IAM)
-- **Zero-Trust JWT Auth:** Stateless access token issuance with extensible HttpOnly secure cookie refresh flow capability.
-- **Granular RBAC:** Distinct protected dashboard layers for `SuperAdmin`, `Committee Member`, `Volunteer`, and `General User`.
+## 🗄️ Database Entity Relationship (ERD) Highlights
 
-### 🕌 Financial & Operational Automation
-- **Digital Ledger & Audit Trails:** Real-time tracking of community donations, automated PDF generation (via PDFKit) for donor receipts, and integrated ledger auditing.
-- **Dynamic Event Horizons:** CRUD-based event management, ticketing, community RSVP capability, and automated prayer-timing countdown webhooks.
+The system leverages **MongoDB (NoSQL)** but enforces strict referential integrity via Mongoose `ObjectIds`. We operate across 19 unique collections. Key relational branches include:
 
-### 📚 EdTech Module (Madrasa Administration)
-- **Academic Ecosystem:** Complete mapping of Courses -> Instructors -> Students.
-- **Performance & Certification:** Integrated grading modules and automated system-generated graduation certificates.
-
-### 💻 Engineering & DX
-- **Design System Architecture:** Modular, prop-driven custom UI component library built entirely on Tailwind CSS to enforce extreme visual consistency.
-- **Data Hydration:** Architecture primed for global state management structures, prepared for edge-caching and optimistic UI updates.
+* **Authentication Node:** `User` collection links to specialized profiles (`Member`, `Committee`, `Volunteer`).
+* **Financial Node:** `Donation` references `User` (Donor) and `CommitteeMember` (Authorizer).
+* **Academic Node:** `Course` references `Syllabus`, `Teacher`, and an array of enrolled `Student` entities.
 
 ---
 
-## 🛠️ Technical Specifications
+## 🛠️ Technical Stack Specifications
 
-### Component Breakdown
-| Layer | Technology | Purpose |
+| Domain | Technology / Framework | Implementation Purpose |
 | ------ | ----------- | ----------- |
-| **Frontend** | React 19, Vite, Tailwind CSS | High-performance SPA, Custom Islamic-Themed UI library |
-| **Backend** | Node.js, Express.js | Non-blocking I/O event-driven highly scalable REST API |
-| **Database** | MongoDB, Mongoose | NoSQL flexible schema modeling (19 normalized collections) |
-| **Security** | bcryptjs, jsonwebtoken | Cryptographic hashing and secure payload transmission |
-| **Integrations** | Cloudinary, PDFKit | CDN asset management and server-side PDF buffering |
+| **Frontend Framework** | React.js (v19), Vite | High-speed Single Page Application (SPA) rendering. |
+| **Styling & UI** | Tailwind CSS v4 | Utility-first, highly scalable CSS. Features custom Islamic design tokens. |
+| **Backend Environment** | Node.js, Express.js | Event-driven, non-blocking I/O for high-concurrent API request handling. |
+| **Database & ORM** | MongoDB Atlas, Mongoose | Flexible JSON-like document storage enforcing strict schemas at the application layer. |
+| **Authentication** | JSON Web Tokens (JWT), bcrypt | Cryptographically verified stateless sessions; irreversible password hashing. |
+| **Service Integrations** | PDFKit, Cloudinary | Server-side receipt/certificate rendering; Cloud CDN management for user avatars/venues. |
 
 ---
 
-## ⚙️ Development Environment
+## ⚙️ Installation & Developer Setup
 
 ### Prerequisites
-- Node.js (v18.x.x LTS or higher)
-- MongoDB Database cluster (Local or Atlas)
-- Git CLI
+* **Node.js**: `v18.0.0` or higher required.
+* **Database**: MongoDB instance (local or Atlas URI).
+* **Package Manager**: npm or yarn.
 
-### Local Setup
+### Setup Instructions
 
-1. **Clone the repository:**
+1. **Clone the Source Code**
    ```bash
    git clone https://github.com/kasimshah19/Faizan-E-Madina-Sunni-Masjid.git
    cd Faizan-E-Madina-Sunni-Masjid
    ```
 
-2. **Install Dependencies:**
+2. **Install Inter-workspace Dependencies**
+   *(Installs dependencies for both the `/client` and `/server` concurrently)*
    ```bash
    npm run install:all
    ```
 
-3. **Environment Configuration:**
-   Create `.env` files in both `/client` and `/server` respectively matching their `.env.example` configurations. Minimum configurations include:
-   - `MONGO_URI`
-   - `JWT_SECRET`
-   - `PORT=5000`
+3. **Configure Environment Secrets**
+   Next, create `.env` files in both the root of `/client` and `/server`. Use the provided `.env.example` frameworks. 
+   
+   **Critical Server Variables:**
+   ```env
+   PORT=5000
+   MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/faizan_db
+   JWT_SECRET=your_super_secret_cryptographic_key
+   ```
 
-4. **Initialize Boot Sequence:**
+4. **Initialize the Development Servers**
    ```bash
+   # Boots strictly on PORT 5000 (Backend) & localhost:5173 (Vite Frontend)
    npm run dev
    ```
-   *The Express backend initializes strictly on PORT 5000; Vite HMR handles the frontend on localhost:5173.*
 
 ---
 
 ## 🧑‍💻 Core Engineering Team
 
-This highly-scalable web application is architected and engineered by:
-- **Backend Infrastructure & System Design:** [Kasim Shah (kasimshah19)](https://github.com/kasimshah19)
-- **Frontend & UI/UX Engineering:** Ammar Shaikh & Mohammad Sohel
+This highly scalable infrastructure was engineered by a specialized dynamic team:
 
-*Built with passion to push community technology standards to enterprise levels.*
+* **[Kasim Shah](https://github.com/kasimshah19)** ➔ `Backend Infrastructure, System Design & Database Architecture`
+* **Ammar Shaikh** ➔ `Frontend Architecture, React SPA & UI Engineering`
+* **Mohammad Sohel** ➔ `Frontend Architecture, React SPA & UI Engineering`
+
+---
+> *Architected to push community-driven technology standards to enterprise-grade heights.*
