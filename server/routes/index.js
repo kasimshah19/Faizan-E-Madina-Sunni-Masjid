@@ -16,6 +16,13 @@ import analyticsRoutes from './analyticsRoutes.js';
 import auditLogRoutes from './auditLogRoutes.js';
 import settingsRoutes from './settingsRoutes.js';
 
+import studentRoutes from './studentRoutes.js';
+import teacherRoutes from './teacherRoutes.js';
+import courseRoutes from './courseRoutes.js';
+import enrollmentRoutes from './enrollmentRoutes.js';
+import attendanceRoutes from './attendanceRoutes.js';
+import gradeRoutes from './gradeRoutes.js';
+
 const router = Router();
 
 router.use('/auth', authRoutes);
@@ -23,17 +30,24 @@ router.use('/user', userRoutes);
 router.use('/member', memberRoutes);
 router.use('/volunteer', volunteerRoutes);
 router.use('/committee', committeeRoutes);
-router.use('/donation', donationRoutes);
-router.use('/event', eventRoutes);
-router.use('/prayer', prayerRoutes);
+router.use('/donations', donationRoutes);
+router.use('/events', eventRoutes);
+router.use('/prayers', prayerRoutes);
 router.use('/gallery', galleryRoutes);
-router.use('/announcement', announcementRoutes);
+router.use('/announcements', announcementRoutes);
 router.use('/contact', contactRoutes);
 router.use('/madrasa', madrasaRoutes);
 router.use('/certificate', certificateRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/auditLog', auditLogRoutes);
 router.use('/settings', settingsRoutes);
+
+router.use('/students', studentRoutes);
+router.use('/teachers', teacherRoutes);
+router.use('/courses', courseRoutes);
+router.use('/enrollments', enrollmentRoutes);
+router.use('/attendance', attendanceRoutes);
+router.use('/grades', gradeRoutes);
 
 export default router;
 
