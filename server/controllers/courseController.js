@@ -133,7 +133,18 @@ export const updateCourse = async (req, res, next) => {
             delete req.body.enrolledStudents; // Enrollment endpoints should handle this
         }
 
-        course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+        const { name, description, teacher: bodyTeacher, schedule, duration, maxStudents } = req.body;
+
+        const allowedUpdates = {
+            ...(name && { name }),
+            ...(description && { description }),
+            ...(bodyTeacher && { teacher: bodyTeacher }),
+            ...(schedule && { schedule }),
+            ...(duration && { duration }),
+            ...(maxStudents !== undefined && { maxStudents }),
+        };
+
+        course = await Course.findByIdAndUpdate(req.params.id, allowedUpdates, {
             new: true,
             runValidators: true,
         });

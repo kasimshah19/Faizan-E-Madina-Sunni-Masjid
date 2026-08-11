@@ -10,6 +10,7 @@ import VerifyOtp from '../pages/auth/VerifyOtp';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import ResetPassword from '../pages/auth/ResetPassword';
 import StyleGuide from '../pages/StyleGuide';
+import VerifyCertificate from '../pages/public/VerifyCertificate';
 
 import Unauthorized from '../pages/errors/Unauthorized';
 import NotFound from '../pages/errors/NotFound';
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/style-guide" element={<StyleGuide />} />
+        <Route path="/verify/:certificateNumber" element={<VerifyCertificate />} />
       </Route>
       {/* ── Protected Route Groups ── */}
 

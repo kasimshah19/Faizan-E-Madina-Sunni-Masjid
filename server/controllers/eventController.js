@@ -172,12 +172,27 @@ export const updateEvent = async (req, res, next) => {
             return res.status(403).json({ success: false, message: 'Forbidden — you can only update your own events' });
         }
 
-        // Prevent createdBy modification
-        if (req.body.createdBy) {
-            delete req.body.createdBy;
+        // Mass Assignment Protection: explicitly pick allowed fields to prevent committee members injecting `status`, `createdBy`, etc.
+        const allowedUpdates = {};
+        const { title, description, category, date, startTime, endTime, location, bannerImage, maxAttendees, isRegistrationRequired } = req.body;
+
+        if (title !== undefined) allowedUpdates.title = title;
+        if (description !== undefined) allowedUpdates.description = description;
+        if (category !== undefined) allowedUpdates.category = category;
+        if (date !== undefined) allowedUpdates.date = date;
+        if (startTime !== undefined) allowedUpdates.startTime = startTime;
+        if (endTime !== undefined) allowedUpdates.endTime = endTime;
+        if (location !== undefined) allowedUpdates.location = location;
+        if (bannerImage !== undefined) allowedUpdates.bannerImage = bannerImage;
+
+        // Admin overrides for sensitive structural fields
+        if (req.user.role === 'admin' || req.user.role === 'superadmin') {
+            if (req.body.status !== undefined) allowedUpdates.status = req.body.status;
+            if (maxAttendees !== undefined) allowedUpdates.maxAttendees = maxAttendees;
+            if (isRegistrationRequired !== undefined) allowedUpdates.isRegistrationRequired = isRegistrationRequired;
         }
 
-        event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+        event = await Event.findByIdAndUpdate(req.params.id, allowedUpdates, {
             new: true,
             runValidators: true,
         });

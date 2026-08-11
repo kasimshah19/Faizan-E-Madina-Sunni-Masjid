@@ -22,8 +22,12 @@ import courseRoutes from './courseRoutes.js';
 import enrollmentRoutes from './enrollmentRoutes.js';
 import attendanceRoutes from './attendanceRoutes.js';
 import gradeRoutes from './gradeRoutes.js';
+import { apiLimiter } from '../middleware/rateLimiter.js';
 
 const router = Router();
+
+// Apply global rate limiting to all /api routes under this router
+router.use(apiLimiter);
 
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);

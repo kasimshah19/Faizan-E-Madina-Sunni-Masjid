@@ -121,7 +121,22 @@ export const updateStudent = async (req, res, next) => {
             delete req.body.enrolledCourses;
         }
 
-        student = await Student.findByIdAndUpdate(req.params.id, req.body, {
+        const { fullName, age, guardianName, guardianContact, admissionDate, status } = req.body;
+
+        let allowedUpdates = {
+            ...(fullName && { fullName }),
+            ...(age !== undefined && { age }),
+            ...(guardianName && { guardianName }),
+            ...(guardianContact && { guardianContact }),
+            ...(admissionDate && { admissionDate }),
+        };
+
+        // Enforce strict RBAC on sensitive fields: only Admins can flip student block/active status
+        if (status && req.user.role === 'admin') {
+            allowedUpdates.status = status;
+        }
+
+        student = await Student.findByIdAndUpdate(req.params.id, allowedUpdates, {
             new: true,
             runValidators: true,
         });

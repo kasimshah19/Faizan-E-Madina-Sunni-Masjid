@@ -17,6 +17,7 @@ import Madrasa from '../pages/admin/Madrasa';
 import Analytics from '../pages/admin/Analytics';
 import AuditLogs from '../pages/admin/AuditLogs';
 import WebsiteSettings from '../pages/admin/WebsiteSettings';
+import CertificatesManage from '../pages/admin/CertificatesManage';
 
 const AdminRoutes = () => {
   return (
@@ -37,6 +38,7 @@ const AdminRoutes = () => {
       <Route path="analytics" element={<Analytics />} />
       <Route path="audit" element={<AuditLogs />} />
       <Route path="settings" element={<WebsiteSettings />} />
+      <Route path="certificates" element={<CertificatesManage />} />
 
       {/* Redirect /admin to /admin/dashboard */}
       <Route path="" element={<Navigate to="dashboard" replace />} />

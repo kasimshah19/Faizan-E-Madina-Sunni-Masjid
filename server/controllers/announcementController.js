@@ -155,7 +155,17 @@ export const updateAnnouncement = async (req, res, next) => {
             delete req.body.createdBy; // Prevent transferring ownership
         }
 
-        announcement = await Announcement.findByIdAndUpdate(req.params.id, req.body, {
+        const { title, content, priority, isPinned, expiresAt } = req.body;
+
+        const allowedUpdates = {
+            ...(title && { title }),
+            ...(content && { content }),
+            ...(priority && { priority }),
+            ...(isPinned !== undefined && { isPinned }),
+            ...(expiresAt !== undefined && { expiresAt }),
+        };
+
+        announcement = await Announcement.findByIdAndUpdate(req.params.id, allowedUpdates, {
             new: true,
             runValidators: true,
         });

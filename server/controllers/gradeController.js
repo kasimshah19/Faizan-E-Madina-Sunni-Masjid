@@ -99,10 +99,16 @@ export const updateGrade = async (req, res, next) => {
         }
 
         // Recompute letter grade if marks changed
-        let updateFields = req.body;
-        if (req.body.marksObtained !== undefined || req.body.totalMarks !== undefined) {
-            const marksObtained = req.body.marksObtained !== undefined ? req.body.marksObtained : grade.marksObtained;
-            const totalMarks = req.body.totalMarks !== undefined ? req.body.totalMarks : grade.totalMarks;
+        const { assessmentName, marksObtained: newMarks, totalMarks: newTotal, remarks } = req.body;
+
+        let updateFields = {
+            ...(assessmentName && { assessmentName }),
+            ...(remarks !== undefined && { remarks })
+        };
+
+        if (newMarks !== undefined || newTotal !== undefined) {
+            const marksObtained = newMarks !== undefined ? newMarks : grade.marksObtained;
+            const totalMarks = newTotal !== undefined ? newTotal : grade.totalMarks;
 
             const percentage = (marksObtained / totalMarks) * 100;
             let letterGrade = 'F';
@@ -111,12 +117,10 @@ export const updateGrade = async (req, res, next) => {
             else if (percentage >= 70) letterGrade = 'C';
             else if (percentage >= 60) letterGrade = 'D';
 
+            updateFields.marksObtained = marksObtained;
+            updateFields.totalMarks = totalMarks;
             updateFields.grade = letterGrade;
         }
-
-        if (updateFields.recordedBy) delete updateFields.recordedBy;
-        if (updateFields.student) delete updateFields.student;
-        if (updateFields.course) delete updateFields.course;
 
         grade = await Grade.findByIdAndUpdate(req.params.id, updateFields, {
             new: true,

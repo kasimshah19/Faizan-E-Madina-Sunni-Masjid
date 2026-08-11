@@ -1,0 +1,11 @@
+{
+  "1. Public Submit Works (No Auth)": "PASS",
+  "2/3/4. Validation Rejects Malformed Input": "PASS",
+  "6. Public User Rejected from Admin route": "PASS",
+  "7. Member Rejected from Admin route": "PASS",
+  "8/15/16/17. Admin Get + Filter/Search Works": "PASS",
+  "9. Admin View Single Message (Forces read)": "PASS",
+  "10/11. Admin Status/Priority Update Works": "PASS",
+  "12/13/14. Admin Reply Handler Secure": "PASS",
+  "Reply Success State Check": "PASS"
+}

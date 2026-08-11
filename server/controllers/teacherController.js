@@ -105,7 +105,17 @@ export const updateTeacher = async (req, res, next) => {
             delete req.body.assignedCourses;
         }
 
-        teacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, {
+        const { fullName, qualification, specialization, contact, joinedDate, status } = req.body;
+        const allowedUpdates = {
+            ...(fullName && { fullName }),
+            ...(qualification && { qualification }),
+            ...(specialization && { specialization }),
+            ...(contact && { contact }),
+            ...(joinedDate && { joinedDate }),
+            ...(status && { status }),
+        };
+
+        teacher = await Teacher.findByIdAndUpdate(req.params.id, allowedUpdates, {
             new: true,
             runValidators: true,
         });

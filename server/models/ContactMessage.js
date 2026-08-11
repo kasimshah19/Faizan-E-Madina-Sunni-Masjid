@@ -38,13 +38,24 @@ const contactMessageSchema = new mongoose.Schema(
       minlength: [10, 'Message must be at least 10 characters'],
       maxlength: [3000, 'Message cannot exceed 3000 characters'],
     },
+    category: {
+      type: String,
+      enum: ['General Inquiry', 'Donation', 'Madrasa', 'Events', 'Volunteer', 'Marriage / Nikah', 'Janazah', 'Suggestion', 'Complaint', 'Other'],
+      default: 'General Inquiry',
+    },
     status: {
       type: String,
-      enum: {
-        values: ['unread', 'read', 'replied'],
-        message: '{VALUE} is not a valid status',
-      },
+      enum: ['unread', 'read', 'in_progress', 'replied', 'resolved', 'archived'],
       default: 'unread',
+    },
+    priority: {
+      type: String,
+      enum: ['low', 'normal', 'high', 'urgent'],
+      default: 'normal',
+    },
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
     repliedBy: {
       type: mongoose.Schema.Types.ObjectId,
