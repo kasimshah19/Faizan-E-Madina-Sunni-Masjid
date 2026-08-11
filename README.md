@@ -180,7 +180,7 @@ The architecture, development, and deployment of this enterprise-grade infrastru
 
 | Team Member | Engineering Role | Core Responsibilities & Technical Scope |
 | :--- | :--- | :--- |
-| **[Kasim Shah](https://github.com/kasimshah19)** | **Lead Backend Engineer & System Architect** | Engineered the Node.js/Express.js REST API, modeled the complex relational NoSQL database schema (MongoDB), implemented enterprise-grade security and stateless authentication (JWT/RBAC), orchestrated cloud deployments (AWS/Render/Vercel), and conducted comprehensive end-to-end endpoint testing. |
+| **[Kasim Shah](https://github.com/kasimshah19)** | **Lead Backend Engineer & System Architect** | Engineered the Node.js/Express.js REST API, modeled the complex relational NoSQL database schema (MongoDB), implemented enterprise-grade security and stateless authentication (JWT/RBAC), orchestrated cloud deployments (AWS/Render/Vercel), and conducted comprehensive end-to-end endpoint testing utilizing Postman workspaces. |
 | **[Ammar Shaikh](https://github.com/Ammarsk22)** | Frontend Engineer | Developed the React.js Single Page Application (SPA), configured robust global client-side state management, and executed the custom prop-driven design system leveraging Tailwind CSS. |
 | **[Mohammad Sohel](https://github.com/m-sohel)** | Frontend Engineer | Engineered highly responsive UI/UX web layouts, optimized Cross-Browser rendering methodologies (CLS optimization), and handled seamless client-to-server REST API integrations. |
 

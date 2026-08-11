@@ -1,0 +1,47 @@
+﻿Γùç injected env (14) from ..\.env // tip: Γîÿ custom filepath { path: '/custom/path/.env' }
+--- START TESTS ---
+
+CHECK 1: [PASS]
+Evidence: Course: _id=6a7aa7f2957cbbec4b782e0f, name="Course 1"
+enrolledStudents=[6a7aa7f2957cbbec4b782e00, 6a7aa7f2957cbbec4b782e01, 6a7aa7f2957cbbec4b782e02, 6a7aa7f2957cbbec4b782e03, 6a7aa7f2957cbbec4b782e04, 6a7aa7f2957cbbec4b782e05, 6a7aa7f2957cbbec4b782e06, 6a7aa7f2957cbbec4b782e07, 6a7aa7f2957cbbec4b782e08, 6a7aa7f2957cbbec4b782e09]
+Student: _id=6a7aa7f2957cbbec4b782e00, fullName="Student 1"
+enrolledCourses=[6a7aa7f2957cbbec4b782e0f, 6a7aa7f2957cbbec4b782e10]
+Contains? YES.
+
+CHECK 2: [PASS]
+Evidence: Teacher: _id=6a7aa7f2957cbbec4b782dfb, fullName="Teacher 1"
+assignedCourses=[6a7aa7f2957cbbec4b782e0f, 6a7aa7f2957cbbec4b782e14]
+Course: _id=6a7aa7f2957cbbec4b782e0f, name="Course 1", teacher=6a7aa7f2957cbbec4b782dfb
+Matches? YES.
+
+CHECK 3: [PASS]
+Evidence: HTTP Status Code: 400
+Response Body: {"success":false,"message":"Student is already enrolled in this course"}
+Confirmed a 400 with a clear message.
+
+CHECK 4: [PASS]
+Evidence: HTTP Status Code: 400
+Response Body: {"success":false,"message":"Course is full"}
+Confirmed 400 'Course is full'.
+
+CHECK 5: [PASS]
+Evidence: Delete blocked teacher attempt HTTP Status Code: 400
+Blocked Body: {"success":false,"message":"Cannot delete teacher with active course assignments ΓÇö reassign courses first"}
+Deleted course HTTP Status: 200
+Success (a).
+Teacher now has assignedCourses=[6a7aa7f2957cbbec4b782e0f]
+Contains deleted course? NO
+
+CHECK 6: [FAIL]
+Evidence: First attempt body: {"success":true,"data":{"_id":"6a7aa7f4957cbbec4b782e17","student":"6a7aa7f2957cbbec4b782e00","course":"6a7aa7f2957cbbec4b782e0f","date":"2026-08-10T18:30:00.000Z","status":"present","markedBy":"6a76bd3197ccdf9d90c4b556","createdAt":"2026-08-11T04:41:24.138Z","updatedAt":"2026-08-11T06:08:15.446Z","__v":0}}
+ID: 6a7aa7f4957cbbec4b782e17
+Second attempt body: {"success":true,"data":{"_id":"6a7aa7f4957cbbec4b782e17","student":"6a7aa7f2957cbbec4b782e00","course":"6a7aa7f2957cbbec4b782e0f","date":"2026-08-10T18:30:00.000Z","status":"absent","markedBy":"6a76bd3197ccdf9d90c4b556","createdAt":"2026-08-11T04:41:24.138Z","updatedAt":"2026-08-11T06:08:15.539Z","__v":0}}
+Total records found for this student/course: 5
+Final status stored in the upserted ID: absent
+
+CHECK 7: [PASS]
+Evidence: Grade response HTTP Status Code: 201
+Grade Response Body: {"success":true,"data":{"student":"6a7aa7f2957cbbec4b782e00","course":"6a7aa7f2957cbbec4b782e0f","assessmentName":"Test Mock","marksObtained":85,"totalMarks":100,"grade":"B","recordedBy":"6a76bd3197ccdf9d90c4b556","_id":"6a7abc4f58f0930f6e074e58","createdAt":"2026-08-11T06:08:15.762Z","updatedAt":"2026-08-11T06:08:15.762Z","__v":0}}
+Computed Grade: B
+Matches scale B (80+).
+
