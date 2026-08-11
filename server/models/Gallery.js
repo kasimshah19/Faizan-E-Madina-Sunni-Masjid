@@ -50,6 +50,9 @@ const gallerySchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    cloudinaryPublicId: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

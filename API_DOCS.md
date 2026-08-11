@@ -337,3 +337,194 @@ This module encompasses 6 highly relational sub-modules managing the Madrasa sys
 - **GET `/api/grades/student/:id`** (Auth: Staff or Student): Aggregates history and returns a cumulative `overallPercentage` metric.
 - **PUT `/api/grades/:id`** (Auth: Staff): Update score (recalculates grade), restricted to the original Teacher recorder or Admins via deep ownership hooks.
 - **DELETE `/api/grades/:id`** (Auth: Staff): Standard restricted delete.
+
+---
+
+# 🖼️ Gallery API Documentation
+
+Base URL: `/api/gallery`
+
+> **Note:** The `POST /api/gallery` endpoint requires `multipart/form-data` (not JSON). The file must be sent under the field name `media`.
+
+---
+
+## 1. Upload Gallery Item
+- **URL:** `/api/gallery`
+- **Method:** `POST`
+- **Auth Required:** Yes (`admin`, `committee`)
+- **Content-Type:** `multipart/form-data`
+- **Body Fields:**
+  - `media` (file, required): Image (JPG/PNG/WEBP) or Video (MP4/MOV), max 50MB
+  - `title` (string, required): Min 2 characters
+  - `description` (string, optional)
+  - `album` (string, optional): Album name for grouping
+  - `category` (string, optional): One of `events`, `mosque`, `madrasa`, `community`, `other`
+  - `tags` (string, optional): Comma-separated tags, e.g. `"prayer,ramadan,community"`
+
+**Success Response:** 201 Created
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "...",
+    "title": "Friday Prayer",
+    "mediaType": "image",
+    "mediaUrl": "https://res.cloudinary.com/.../gallery/abc123.jpg",
+    "cloudinaryPublicId": "faizan-e-madina/gallery/abc123",
+    "category": "events",
+    "tags": ["prayer", "ramadan"],
+    "uploadedBy": "userId",
+    "createdAt": "..."
+  }
+}
+```
+
+---
+
+## 2. Get All Gallery Items (Public)
+- **URL:** `/api/gallery`
+- **Method:** `GET`
+- **Auth Required:** No
+- **Query Params:**
+  - `page` (default: 1), `limit` (default: 20)
+  - `category` — filter by category enum
+  - `album` — filter by album name
+  - `mediaType` — `image` or `video`
+  - `search` — matches title or tags (case-insensitive)
+
+**Success Response:** 200 OK (paginated list)
+
+---
+
+## 3. Get Albums (Public)
+- **URL:** `/api/gallery/albums`
+- **Method:** `GET`
+- **Auth Required:** No
+
+**Success Response:** 200 OK
+```json
+{
+  "success": true,
+  "count": 3,
+  "data": [
+    { "album": "Masjid Photos", "count": 4, "latestImage": "https://..." },
+    { "album": "Events", "count": 3, "latestImage": "https://..." }
+  ]
+}
+```
+
+---
+
+## 4. Get Single Gallery Item (Public)
+- **URL:** `/api/gallery/:id`
+- **Method:** `GET`
+- **Auth Required:** No
+
+**Success Response:** 200 OK
+
+---
+
+## 5. Update Gallery Item (Metadata Only)
+- **URL:** `/api/gallery/:id`
+- **Method:** `PUT`
+- **Auth Required:** Yes (`admin`, `committee` — committee can only edit own uploads)
+- **Body (JSON):** `title`, `description`, `album`, `category`, `tags`
+
+**Success Response:** 200 OK
+*Note: Does NOT replace the uploaded media file. To change media, delete and re-upload.*
+
+---
+
+## 6. Delete Gallery Item
+- **URL:** `/api/gallery/:id`
+- **Method:** `DELETE`
+- **Auth Required:** Yes (`admin`, `committee` — committee can only delete own uploads)
+
+---
+
+# 📄 Documents & Notices API Documentation
+
+Base URL: `/api/documents`
+
+> **Note:** The `POST /api/documents` endpoint requires `multipart/form-data` (not JSON). The file must be sent under the field name `document` (strictly PDFs only), max limit 15MB.
+
+---
+
+## 1. Upload Document
+- **URL:** `/api/documents`
+- **Method:** `POST`
+- **Auth Required:** Yes (`admin`, `committee`)
+- **Content-Type:** `multipart/form-data`
+- **Body Fields:**
+  - `document` (file, required): strictly `.pdf`
+  - `title` (string, required): Min 2 characters
+  - `category` (string, required): One of `annual_report`, `notice`, `circular`, `policy`, `other`
+  - `description` (string, optional)
+  - `isPublic` (boolean, optional, default: true): Set to `false` for internal admin documents.
+
+**Success Response:** 201 Created
+
+---
+
+## 2. Get All Public Documents
+- **URL:** `/api/documents`
+- **Method:** `GET`
+- **Auth Required:** No
+- **Query Params:** `page`, `limit`, `category`, `search`
+- **Note:** Strict filter applied; ONLY returns items where `isPublic` is `true`.
+
+**Success Response:** 200 OK (paginated list sorted by `publishDate` descending)
+
+---
+
+## 3. Get All Documents (Admin)
+- **URL:** `/api/documents/admin/all`
+- **Method:** `GET`
+- **Auth Required:** Yes (`admin`, `committee`)
+- **Note:** Returns ALL documents (both public and private) for management dashboard.
+
+**Success Response:** 200 OK (paginated list)
+
+---
+
+## 4. Get Single Document Details
+- **URL:** `/api/documents/:id`
+- **Method:** `GET`
+- **Auth Required:** Optional
+- **Note:** Checks visibility. If document is private (`isPublic: false`), it will deliberately return a `404 Not Found` to guests/members, to mask its existence. Admin/Committee bypassing the check will receive the document.
+
+**Success Response:** 200 OK
+**Failure Response (Hidden):** 404 Not Found
+
+---
+
+## 5. Download Document (File Delivery)
+- **URL:** `/api/documents/:id/download`
+- **Method:** `GET`
+- **Auth Required:** Optional (Subject to same `isPublic` checks as above)
+- **Note:** This endpoint increments the `downloadCount` analytic metric by 1, and then performs an HTTP `302 Redirect` to direct the browser to fetch the raw PDF from Cloudinary URL safely.
+
+**Success Response:** 302 Redirect
+**Failure Response (Hidden):** 404 Not Found
+
+---
+
+## 6. Update Document (Metadata Only)
+- **URL:** `/api/documents/:id`
+- **Method:** `PUT`
+- **Auth Required:** Yes (`admin`, `committee` — committee can only edit own uploads)
+- **Body (JSON):** `title`, `description`, `category`, `isPublic`
+- **Note:** Does NOT replace the uploaded PDF file. To change media, delete and re-upload.
+
+**Success Response:** 200 OK
+
+---
+
+## 7. Delete Document
+- **URL:** `/api/documents/:id`
+- **Method:** `DELETE`
+- **Auth Required:** Yes (`admin`, `committee` — committee can only delete own uploads)
+- **Note:** Deletes the physical `raw` PDF asset inside Cloudinary `faizan-e-madina/documents` folder, then deletes the MongoDB record.
+
+**Success Response:** 200 OK
+

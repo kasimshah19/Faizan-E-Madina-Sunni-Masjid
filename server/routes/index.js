@@ -15,6 +15,7 @@ import certificateRoutes from './certificateRoutes.js';
 import analyticsRoutes from './analyticsRoutes.js';
 import auditLogRoutes from './auditLogRoutes.js';
 import settingsRoutes from './settingsRoutes.js';
+import documentRoutes from './documentRoutes.js';
 
 import studentRoutes from './studentRoutes.js';
 import teacherRoutes from './teacherRoutes.js';
@@ -38,6 +39,7 @@ router.use('/donations', donationRoutes);
 router.use('/events', eventRoutes);
 router.use('/prayers', prayerRoutes);
 router.use('/gallery', galleryRoutes);
+router.use('/documents', documentRoutes);
 router.use('/announcements', announcementRoutes);
 router.use('/contact', contactRoutes);
 router.use('/madrasa', madrasaRoutes);
@@ -45,6 +47,7 @@ router.use('/certificate', certificateRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/auditLog', auditLogRoutes);
 router.use('/settings', settingsRoutes);
+
 
 router.use('/students', studentRoutes);
 router.use('/teachers', teacherRoutes);
