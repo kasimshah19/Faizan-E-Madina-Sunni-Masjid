@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import Member from '../models/Member.js';
 import Volunteer from '../models/Volunteer.js';
 import CommitteeMember from '../models/CommitteeMember.js';
+import { logAction } from '../services/auditLogService.js';
 
 // @desc    Get logged in user's profile
 // @route   GET /api/user/me // note index.js mounts at /user not /users right now, but task says /api/users.
@@ -95,6 +96,7 @@ export const updateUserRole = async (req, res) => {
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
+        const oldRole = user.role;
         user.role = role;
         await user.save();
 
@@ -115,7 +117,15 @@ export const updateUserRole = async (req, res) => {
             );
         }
 
-        // TODO AuditLog entry conceptually here
+        logAction({
+            userId: req.user.id,
+            action: 'USER_ROLE_CHANGED',
+            module: 'Users',
+            targetId: user._id,
+            details: { oldRole, newRole: role },
+            req
+        });
+
         res.status(200).json({ success: true, message: 'Role updated successfully', data: user });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -131,6 +141,16 @@ export const toggleUserActive = async (req, res) => {
 
         user.isActive = !user.isActive;
         await user.save();
+
+        logAction({
+            userId: req.user.id,
+            action: 'USER_ACTIVATION_TOGGLED',
+            module: 'Users',
+            targetId: user._id,
+            details: { isActive: user.isActive },
+            req
+        });
+
         res.status(200).json({ success: true, message: `User status changed to ${user.isActive ? 'active' : 'inactive'}`, data: { isActive: user.isActive } });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -151,6 +171,15 @@ export const deleteUser = async (req, res) => {
         await CommitteeMember.deleteOne({ user: user._id });
 
         await user.deleteOne();
+
+        logAction({
+            userId: req.user.id,
+            action: 'USER_DELETED',
+            module: 'Users',
+            targetId: user._id,
+            details: { email: user.email, role: user.role },
+            req
+        });
 
         // Note: Does not cascade delete historical Donation, Attendance or Grade files.
         res.status(200).json({ success: true, message: 'User deleted safely without affecting history.' });

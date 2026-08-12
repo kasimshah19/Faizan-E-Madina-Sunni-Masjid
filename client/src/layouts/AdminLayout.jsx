@@ -8,6 +8,7 @@ import {
   HiOutlineAcademicCap, // Madrasa
   HiOutlineCurrencyDollar, // Donations
   HiOutlineBriefcase, // Committee/Volunteers
+  HiOutlineShieldCheck, // Audit Logs
 } from 'react-icons/hi';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCredentials } from '../redux/slices/authSlice';
@@ -20,6 +21,7 @@ const adminNavItems = [
   { path: '/admin/madrasa', label: 'Madrasa', icon: <HiOutlineAcademicCap /> },
   { path: '/admin/donations', label: 'Donations', icon: <HiOutlineCurrencyDollar /> },
   { path: '/admin/committee', label: 'Committee', icon: <HiOutlineBriefcase /> },
+  { path: '/admin/audit', label: 'Audit Logs', icon: <HiOutlineShieldCheck /> },
 ];
 
 const AdminLayout = () => {

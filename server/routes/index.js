@@ -45,7 +45,7 @@ router.use('/contact', contactRoutes);
 router.use('/madrasa', madrasaRoutes);
 router.use('/certificate', certificateRoutes);
 router.use('/analytics', analyticsRoutes);
-router.use('/auditLog', auditLogRoutes);
+router.use('/audit-logs', auditLogRoutes);
 router.use('/settings', settingsRoutes);
 
 

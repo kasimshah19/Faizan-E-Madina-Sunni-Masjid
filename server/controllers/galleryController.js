@@ -167,7 +167,7 @@ export const getGalleryItemById = async (req, res, next) => {
 
 /**
  * @route   PUT /api/gallery/:id
- * @desc    Update gallery item metadata (admin/committee — ownership check)
+ * @desc    Update gallery item metadata (admin/committee ï¿½ ownership check)
  *          Does NOT replace the actual uploaded file/media.
  */
 export const updateGalleryItem = async (req, res, next) => {
@@ -185,7 +185,7 @@ export const updateGalleryItem = async (req, res, next) => {
         ) {
             return res.status(403).json({
                 success: false,
-                message: 'Forbidden — you can only update your own uploads',
+                message: 'Forbidden ï¿½ you can only update your own uploads',
             });
         }
 
@@ -212,7 +212,7 @@ export const updateGalleryItem = async (req, res, next) => {
 
 /**
  * @route   DELETE /api/gallery/:id
- * @desc    Delete gallery item + Cloudinary asset (admin/committee — ownership check)
+ * @desc    Delete gallery item + Cloudinary asset (admin/committee ï¿½ ownership check)
  */
 export const deleteGalleryItem = async (req, res, next) => {
     try {
@@ -229,7 +229,7 @@ export const deleteGalleryItem = async (req, res, next) => {
         ) {
             return res.status(403).json({
                 success: false,
-                message: 'Forbidden — you can only delete your own uploads',
+                message: 'Forbidden ï¿½ you can only delete your own uploads',
             });
         }
 

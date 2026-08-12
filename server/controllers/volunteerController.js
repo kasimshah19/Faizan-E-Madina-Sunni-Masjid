@@ -1,5 +1,6 @@
 import Volunteer from '../models/Volunteer.js';
 import User from '../models/User.js';
+import { logAction } from '../services/auditLogService.js';
 
 // @desc    Get my volunteer profile / status
 // @route   GET /api/volunteer/me
@@ -45,6 +46,15 @@ export const approveVolunteerRequest = async (req, res) => {
         // Sync role to user
         await User.findByIdAndUpdate(volunteer.user, { role: 'volunteer' });
 
+        logAction({
+            userId: req.user.id,
+            action: 'VOLUNTEER_APPROVED',
+            module: 'Volunteers',
+            targetId: volunteer.user,
+            details: { volunteerId: volunteer._id },
+            req
+        });
+
         res.status(200).json({ success: true, message: 'Volunteer approved successfully', data: volunteer });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -60,6 +70,15 @@ export const rejectVolunteerRequest = async (req, res) => {
 
         volunteer.status = 'rejected';
         await volunteer.save();
+
+        logAction({
+            userId: req.user.id,
+            action: 'VOLUNTEER_REJECTED',
+            module: 'Volunteers',
+            targetId: volunteer.user,
+            details: { volunteerId: volunteer._id },
+            req
+        });
 
         res.status(200).json({ success: true, message: 'Volunteer rejected successfully', data: volunteer });
     } catch (error) {

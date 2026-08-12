@@ -1,5 +1,6 @@
 import CommitteeMember from '../models/CommitteeMember.js';
 import User from '../models/User.js';
+import { logAction } from '../services/auditLogService.js';
 
 export const getMyCommitteeProfile = async (req, res) => {
     try {
@@ -37,6 +38,16 @@ export const assignCommitteeMember = async (req, res) => {
         });
 
         await User.findByIdAndUpdate(userId, { role: 'committee' });
+
+        logAction({
+            userId: req.user.id,
+            action: 'COMMITTEE_MEMBER_ASSIGNED',
+            module: 'Committee',
+            targetId: userId,
+            details: { designation, permissions: permissions || [] },
+            req
+        });
+
         res.status(201).json({ success: true, message: 'Committee member assigned', data: committee });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -51,6 +62,15 @@ export const updateCommitteePermissions = async (req, res) => {
 
         committee.permissions = permissions;
         await committee.save();
+
+        logAction({
+            userId: req.user.id,
+            action: 'COMMITTEE_PERMISSIONS_UPDATED',
+            module: 'Committee',
+            targetId: committee.user,
+            details: { newPermissions: permissions },
+            req
+        });
 
         res.status(200).json({ success: true, message: 'Permissions updated successfully', data: committee });
     } catch (error) {
@@ -67,6 +87,15 @@ export const removeCommitteeMember = async (req, res) => {
         await committee.deleteOne();
 
         await User.findByIdAndUpdate(userId, { role: 'member' });
+
+        logAction({
+            userId: req.user.id,
+            action: 'COMMITTEE_MEMBER_REMOVED',
+            module: 'Committee',
+            targetId: userId,
+            details: { designation: committee.designation },
+            req
+        });
 
         res.status(200).json({ success: true, message: 'Committee member removed successfully and reverted to member' });
     } catch (error) {

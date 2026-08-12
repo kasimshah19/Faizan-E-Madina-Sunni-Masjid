@@ -559,3 +559,81 @@ Base URL: `/api/documents`
 - `POST /assign` (Admin) - Assigns user to committee. Creates CommitteeMember document and upgrades `User.role` to `committee`.
 - `PUT /:id/permissions` (Admin) - Update granular permissions array.
 - `DELETE /:id` (Admin) - Remove member from committee. Reverts `User.role` back to `member`.
+
+---
+
+## Audit Logs API Documentation
+
+Base URL: `/api/audit-logs`
+
+All routes require a JWT bearer token for a user with the `admin` role.
+
+### 1. Get All Audit Logs
+- **URL:** `/api/audit-logs`
+- **Method:** `GET`
+- **Query Params:**
+  - `page` & `limit` for pagination
+  - `module` (e.g., "Users", "Committee")
+  - `action` (e.g., "USER_ROLE_CHANGED")
+  - `userId` (ID of the admin who performed the action)
+  - `startDate` & `endDate` (ISO8601 strings)
+- **Success Response:** 200 OK (Paginated list of logs with user profile populated).
+
+### 2. Get Logs For Target Record
+- **URL:** `/api/audit-logs/target/:targetId`
+- **Method:** `GET`
+- **Query Params:** None
+- **Success Response:** 200 OK (List of all logs affecting the specific `targetId`).
+
+### 3. Get Single Audit Log
+- **URL:** `/api/audit-logs/:id`
+- **Method:** `GET`
+- **Success Response:** 200 OK
+
+### 📝 Tracked Actions Dictionary
+The system natively records the following actions via the `auditLogService`:
+
+- **Users Module:** `USER_ROLE_CHANGED`, `USER_ACTIVATION_TOGGLED`, `USER_DELETED`
+- **Committee Module:** `COMMITTEE_MEMBER_ASSIGNED`, `COMMITTEE_PERMISSIONS_UPDATED`, `COMMITTEE_MEMBER_REMOVED`
+- **Volunteers Module:** `VOLUNTEER_APPROVED`, `VOLUNTEER_REJECTED`
+- **Events Module:** `EVENT_DELETED`
+- **Donations Module:** `DONATION_RECORDED`
+- **Documents Module:** `DOCUMENT_DELETED`
+- **System Settings:** `SYSTEM_SETTINGS_UPDATED`
+
+---
+
+## Analytics API (`/api/analytics`)
+Requires authentication and `admin` role. Returns data generated via native MongoDB aggregations for dashboard rendering.
+
+### 1. Get Dashboard Core Metrics
+- **URL:** `/api/analytics/dashboard-stats`
+- **Method:** `GET`
+- **Success Response:** 200 OK (Returns counters for `totalActiveUsers`, `totalActiveStudents`, `upcomingEvents`, `totalOnlineDonations`).
+
+### 2. Get Financial Chart Data
+- **URL:** `/api/analytics/financial-chart`
+- **Method:** `GET`
+- **Success Response:** 200 OK (Returns an array grouped by `year` and `month` detailing total aggregated donation volume and counts over the past 12 months).
+
+### 3. Get Demographic Stats
+- **URL:** `/api/analytics/demographics`
+- **Method:** `GET`
+- **Success Response:** 200 OK (Returns an array grouping user accounts by their `role`).
+
+---
+
+## System Settings API (`/api/settings`)
+
+### 1. Get Global Settings
+- **URL:** `/api/settings`
+- **Method:** `GET`
+- **Auth:** Public
+- **Success Response:** 200 OK (Returns `maintenanceMode`, `contactEmail`, `contactPhone`, `address`, `socialLinks`).
+
+### 2. Update Global Settings
+- **URL:** `/api/settings`
+- **Method:** `PUT`
+- **Auth:** Admin
+- **Request Body:** Partial or full settings object to patch (e.g., `{ "maintenanceMode": true }`).
+- **Success Response:** 200 OK (Returns updated robust settings singleton doc, and triggers `SYSTEM_SETTINGS_UPDATED` in the global Audit Log).

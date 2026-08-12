@@ -47,6 +47,16 @@ export const createDonation = async (req, res, next) => {
             );
         }
 
+        if (req.user) {
+            logAction({
+                userId: req.user.id,
+                action: 'DONATION_RECORDED',
+                module: 'Donations',
+                targetId: donation._id,
+                details: { amount: donation.amount },
+                req
+            });
+        }
         return res.status(201).json({
             success: true,
             data: donation

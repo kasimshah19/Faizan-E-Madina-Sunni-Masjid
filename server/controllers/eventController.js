@@ -169,7 +169,7 @@ export const updateEvent = async (req, res, next) => {
 
         // Ownership check for committee members
         if (req.user.role === 'committee' && event.createdBy.toString() !== req.user.id) {
-            return res.status(403).json({ success: false, message: 'Forbidden — you can only update your own events' });
+            return res.status(403).json({ success: false, message: 'Forbidden ï¿½ you can only update your own events' });
         }
 
         // Mass Assignment Protection: explicitly pick allowed fields to prevent committee members injecting `status`, `createdBy`, etc.
@@ -220,6 +220,16 @@ export const deleteEvent = async (req, res, next) => {
         // Cascade delete related registrations
         await EventRegistration.deleteMany({ event: req.params.id });
         await event.deleteOne();
+        if (req.user) {
+            logAction({
+                userId: req.user.id,
+                action: 'EVENT_DELETED',
+                module: 'Events',
+                targetId: event._id,
+                details: { title: event.title },
+                req
+            });
+        }
 
         res.status(200).json({
             success: true,
@@ -339,7 +349,7 @@ export const getEventRegistrations = async (req, res, next) => {
 
         // Committee ownership check
         if (req.user.role === 'committee' && event.createdBy.toString() !== req.user.id) {
-            return res.status(403).json({ success: false, message: 'Forbidden — you can only view registrations for your own events' });
+            return res.status(403).json({ success: false, message: 'Forbidden ï¿½ you can only view registrations for your own events' });
         }
 
         const registrations = await EventRegistration.find({ event: eventId })
