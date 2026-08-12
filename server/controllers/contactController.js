@@ -1,4 +1,4 @@
-﻿import ContactMessage from '../models/ContactMessage.js';
+import ContactMessage from '../models/ContactMessage.js';
 import User from '../models/User.js';
 import { sendContactNotificationEmail, sendContactReplyEmail } from '../services/emailService.js';
 
@@ -148,7 +148,7 @@ export const replyToContactMessage = async (req, res) => {
 
         // Update record upon successful email send
         msg.replyMessage = message;
-        msg.repliedBy = req.user._id;
+        msg.repliedBy = req.user.id;
         msg.repliedAt = new Date();
         msg.status = 'replied';
 

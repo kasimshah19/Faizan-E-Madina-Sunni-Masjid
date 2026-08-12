@@ -1,4 +1,4 @@
-﻿import PrayerTiming from '../models/PrayerTiming.js';
+import PrayerTiming from '../models/PrayerTiming.js';
 
 /**
  * @route   GET /api/prayers/today

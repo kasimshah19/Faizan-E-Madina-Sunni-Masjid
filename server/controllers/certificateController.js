@@ -1,4 +1,4 @@
-﻿import Certificate from '../models/Certificate.js';
+import Certificate from '../models/Certificate.js';
 import User from '../models/User.js';
 import Course from '../models/Course.js';
 import { generateCertificateNumber } from '../utils/certificateNumber.js';
@@ -41,7 +41,7 @@ export const createCertificate = async (req, res) => {
             grade,
             achievement,
             status: 'pending',
-            issuedBy: req.user._id // The admin doing the creation
+            issuedBy: req.user.id // The admin doing the creation
         });
 
         res.status(201).json({ success: true, data: cert });
@@ -73,7 +73,7 @@ export const getCertificates = async (req, res) => {
 // @access  Private
 export const getMyCertificates = async (req, res) => {
     try {
-        const certs = await Certificate.find({ recipient: req.user._id })
+        const certs = await Certificate.find({ recipient: req.user.id })
             .populate('course', 'name')
             .sort({ createdAt: -1 });
         res.status(200).json({ success: true, data: certs });
@@ -94,7 +94,7 @@ export const getCertificateById = async (req, res) => {
         if (!cert) return res.status(404).json({ success: false, message: 'Not found' });
 
         // Auth check: Admin/Committee or Owner
-        if (req.user.role !== 'admin' && req.user.role !== 'committee' && cert.recipient._id.toString() !== req.user._id.toString()) {
+        if (req.user.role !== 'admin' && req.user.role !== 'committee' && cert.recipient._id.toString() !== req.user.id.toString()) {
             return res.status(403).json({ success: false, message: 'Not authorized to view this certificate' });
         }
 
@@ -225,7 +225,7 @@ export const downloadCertificate = async (req, res) => {
         const cert = await Certificate.findById(req.params.id).populate('recipient', 'name fullName');
         if (!cert) return res.status(404).json({ success: false, message: 'Not found' });
 
-        if (req.user.role !== 'admin' && req.user.role !== 'committee' && cert.recipient._id.toString() !== req.user._id.toString()) {
+        if (req.user.role !== 'admin' && req.user.role !== 'committee' && cert.recipient._id.toString() !== req.user.id.toString()) {
             return res.status(403).json({ success: false, message: 'Not authorized' });
         }
         if (cert.status !== 'issued') {

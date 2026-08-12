@@ -1,0 +1,14 @@
+﻿We'll use existing committee target
+
+--- TEST: POST /api/committee/assign ---
+EVIDENCE: {
+  "status": 201,
+  "assignedProfile": true,
+  "updatedRole": "committee"
+}
+
+--- TEST: DELETE /api/committee/:id reverts role ---
+EVIDENCE: {
+  "status": 200,
+  "revertedRole": "member"
+}

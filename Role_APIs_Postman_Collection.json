@@ -1,0 +1,242 @@
+{
+    "info": {
+        "name": "Faizan-E-Madina Profile APIs",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "1. Login Admin",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"admin@faizanemadina.com\",\n    \"password\": \"Password@123\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:5000/api/auth/login",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "2. Login Member",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"member@faizanemadina.com\",\n    \"password\": \"Password@123\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:5000/api/auth/login",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "User Profile",
+            "item": [
+                {
+                    "name": "Get My Profile (User)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5000/api/users/me",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Users (Admin)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5000/api/users",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "users"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update User Role (Admin)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"role\": \"volunteer\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:5000/api/users/USER_ID_HERE/role",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "USER_ID_HERE",
+                                "role"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Members",
+            "item": [
+                {
+                    "name": "Request Volunteer (Member)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_MEMBER_TOKEN_HERE"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5000/api/members/request-volunteer",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "members",
+                                "request-volunteer"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Volunteers",
+            "item": [
+                {
+                    "name": "Approve Volunteer (Admin)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:5000/api/volunteers/VOLUNTEER_ID_HERE/approve",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "volunteers",
+                                "VOLUNTEER_ID_HERE",
+                                "approve"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Committee",
+            "item": [
+                {
+                    "name": "Assign Committee (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user\": \"USER_ID_HERE\",\n    \"designation\": \"Event Coordinator\",\n    \"permissions\": [\"events\", \"gallery\"]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:5000/api/committee/assign",
+                            "host": [
+                                "http://localhost:5000"
+                            ],
+                            "path": [
+                                "api",
+                                "committee",
+                                "assign"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

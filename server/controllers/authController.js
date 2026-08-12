@@ -1,4 +1,4 @@
-﻿import crypto from 'crypto';
+import crypto from 'crypto';
 import User from '../models/User.js';
 import Member from '../models/Member.js';
 import { generateOtp } from '../services/otpService.js';
@@ -14,7 +14,7 @@ const REFRESH_COOKIE_OPTIONS = {
     path: '/',
 };
 
-// ─── REGISTER ───────────────────────────────────────────────
+// --- REGISTER -----------------------------------------------
 export const register = async (req, res, next) => {
     try {
         const { fullName, email, password } = req.body;
@@ -25,7 +25,7 @@ export const register = async (req, res, next) => {
             return res.status(409).json({ success: false, message: 'Email already registered' });
         }
 
-        // Create user — role is always 'member' (never trust client)
+        // Create user � role is always 'member' (never trust client)
         const user = await User.create({ fullName, email, password, role: 'member' });
 
         // Generate OTP and save
@@ -37,7 +37,7 @@ export const register = async (req, res, next) => {
         // Create linked Member document
         await Member.create({ user: user._id });
 
-        // Send OTP email (non-blocking — errors are logged)
+        // Send OTP email (non-blocking � errors are logged)
         sendOtpEmail(user.email, otp);
 
         res.status(201).json({
@@ -49,7 +49,7 @@ export const register = async (req, res, next) => {
     }
 };
 
-// ─── VERIFY OTP ─────────────────────────────────────────────
+// --- VERIFY OTP ---------------------------------------------
 export const verifyOtp = async (req, res, next) => {
     try {
         const { email, otp } = req.body;
@@ -88,14 +88,14 @@ export const verifyOtp = async (req, res, next) => {
     }
 };
 
-// ─── RESEND OTP ─────────────────────────────────────────────
+// --- RESEND OTP ---------------------------------------------
 export const resendOtp = async (req, res, next) => {
     try {
         const { email } = req.body;
 
         const user = await User.findOne({ email });
         if (!user) {
-            // Don't reveal if email exists — but still return success-like message
+            // Don't reveal if email exists � but still return success-like message
             return res.status(200).json({ success: true, message: 'If this email is registered, a new OTP has been sent.' });
         }
 
@@ -116,7 +116,7 @@ export const resendOtp = async (req, res, next) => {
     }
 };
 
-// ─── LOGIN ──────────────────────────────────────────────────
+// --- LOGIN --------------------------------------------------
 export const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -158,7 +158,7 @@ export const login = async (req, res, next) => {
     }
 };
 
-// ─── LOGOUT ─────────────────────────────────────────────────
+// --- LOGOUT -------------------------------------------------
 export const logout = async (req, res, next) => {
     try {
         const { refreshToken } = req.cookies;
@@ -178,7 +178,7 @@ export const logout = async (req, res, next) => {
     }
 };
 
-// ─── REFRESH TOKEN ──────────────────────────────────────────
+// --- REFRESH TOKEN ------------------------------------------
 export const refreshTokenHandler = async (req, res, next) => {
     try {
         const { refreshToken } = req.cookies;
@@ -218,7 +218,7 @@ export const refreshTokenHandler = async (req, res, next) => {
     }
 };
 
-// ─── FORGOT PASSWORD ────────────────────────────────────────
+// --- FORGOT PASSWORD ----------------------------------------
 export const forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
@@ -254,7 +254,7 @@ export const forgotPassword = async (req, res, next) => {
     }
 };
 
-// ─── RESET PASSWORD ────────────────────────────────────────
+// --- RESET PASSWORD ----------------------------------------
 export const resetPassword = async (req, res, next) => {
     try {
         const { token } = req.params;
@@ -286,7 +286,7 @@ export const resetPassword = async (req, res, next) => {
     }
 };
 
-// ─── GET ME (protected) ─────────────────────────────────────
+// --- GET ME (protected) -------------------------------------
 export const getMe = async (req, res, next) => {
     try {
         const user = await User.findById(req.user.id);

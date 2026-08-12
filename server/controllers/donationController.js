@@ -1,4 +1,4 @@
-﻿import Donation from '../models/Donation.js';
+import Donation from '../models/Donation.js';
 import Member from '../models/Member.js';
 import { generateReceipt } from '../services/pdfService.js';
 import mongoose from 'mongoose';

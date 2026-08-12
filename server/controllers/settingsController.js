@@ -1,5 +1,5 @@
-﻿// settings controller
+// settings controller
 
-// Placeholder — implement in module phase
+// Placeholder � implement in module phase
 export default {};
 

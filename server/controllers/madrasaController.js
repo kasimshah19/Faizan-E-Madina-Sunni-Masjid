@@ -1,5 +1,5 @@
-﻿// madrasa controller
+// madrasa controller
 
-// Placeholder — implement in module phase
+// Placeholder � implement in module phase
 export default {};
 

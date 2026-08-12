@@ -31,9 +31,9 @@ const router = Router();
 router.use(apiLimiter);
 
 router.use('/auth', authRoutes);
-router.use('/user', userRoutes);
-router.use('/member', memberRoutes);
-router.use('/volunteer', volunteerRoutes);
+router.use('/users', userRoutes);
+router.use('/members', memberRoutes);
+router.use('/volunteers', volunteerRoutes);
 router.use('/committee', committeeRoutes);
 router.use('/donations', donationRoutes);
 router.use('/events', eventRoutes);

@@ -1,4 +1,4 @@
-ï»¿import Announcement from '../models/Announcement.js';
+import Announcement from '../models/Announcement.js';
 import { validationResult } from 'express-validator';
 
 // @desc    Create a new announcement
@@ -148,7 +148,7 @@ export const updateAnnouncement = async (req, res, next) => {
 
         // Ownership check for committee members
         if (req.user.role === 'committee' && announcement.createdBy.toString() !== req.user.id) {
-            return res.status(403).json({ success: false, message: 'Forbidden â€” you can only update your own announcements' });
+            return res.status(403).json({ success: false, message: 'Forbidden — you can only update your own announcements' });
         }
 
         if (req.body.createdBy) {
@@ -215,7 +215,7 @@ export const toggleAnnouncementActive = async (req, res, next) => {
 
         // Ownership check for committee members
         if (req.user.role === 'committee' && announcement.createdBy.toString() !== req.user.id) {
-            return res.status(403).json({ success: false, message: 'Forbidden â€” you can only alter your own announcements' });
+            return res.status(403).json({ success: false, message: 'Forbidden — you can only alter your own announcements' });
         }
 
         announcement.isActive = !announcement.isActive;

@@ -1,0 +1,88 @@
+﻿Logging in...
+
+--- TEST: GET /api/users/me for Admin ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "hasPassword": false,
+  "roleProfileLinked": false
+}
+
+--- TEST: GET /api/users/me for Committee ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "hasPassword": false,
+  "roleProfileLinked": true
+}
+
+--- TEST: GET /api/users/me for Volunteer ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "hasPassword": false,
+  "roleProfileLinked": true
+}
+
+--- TEST: GET /api/users/me for Member ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "hasPassword": false,
+  "roleProfileLinked": true
+}
+
+--- TEST: PUT /api/users/me block email/role ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "email": "member@faizanemadina.com",
+  "role": "member",
+  "fullName": "Updated Member"
+}
+
+--- TEST: GET /api/users as admin ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "usersCount": 10
+}
+
+--- TEST: GET /api/users as member ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 403
+}
+
+--- TEST: PUT /api/users/:id/role to volunteer ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 200,
+  "newRole": "volunteer",
+  "linkedVolunteerCreated": true
+}
+
+--- TEST: POST /api/members/request-volunteer duplicate ---
+STATUS: Γ£à PASS
+EVIDENCE: {
+  "status": 400
+}
+node : TypeError: Cannot read properties of 
+undefined (reading '_id')
+At line:1 char:85
++ ... leep -s 3 ; node 
+scripts/testRolesApi.js > testOutput.txt 
+2>&1 ; cat  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: 
+    (TypeError: Cann...(reading '_id'):Str  
+  ing) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommand 
+   Error
+ 
+    at runTests (file:///D:/Faizan-E-Madina-
+Sunni-Masjid/server/scripts/testRolesApi.js:
+94:76)
+    at process.processTicksAndRejections 
+(node:internal/process/task_queues:105:5)

@@ -1,4 +1,4 @@
-﻿import Gallery from '../models/Gallery.js';
+import Gallery from '../models/Gallery.js';
 import cloudinary from '../config/cloudinary.js';
 
 /**
@@ -17,7 +17,7 @@ export const uploadGalleryItem = async (req, res, next) => {
 
         const { title, description, album, category, tags } = req.body;
 
-        // Derive mediaType from the file's mimetype (image/* → image, video/* → video)
+        // Derive mediaType from the file's mimetype (image/* ? image, video/* ? video)
         const mediaType = req.file.mimetype.startsWith('video') ? 'video' : 'image';
 
         // multer-storage-cloudinary puts the Cloudinary URL on req.file.path
@@ -36,7 +36,7 @@ export const uploadGalleryItem = async (req, res, next) => {
             thumbnailUrl = mediaUrl.replace(/\.(mp4|mov)$/i, '.jpg');
         }
 
-        // Parse tags: comma-separated string → array
+        // Parse tags: comma-separated string ? array
         const parsedTags = tags
             ? tags.split(',').map((t) => t.trim()).filter(Boolean)
             : [];
@@ -167,7 +167,7 @@ export const getGalleryItemById = async (req, res, next) => {
 
 /**
  * @route   PUT /api/gallery/:id
- * @desc    Update gallery item metadata (admin/committee — ownership check)
+ * @desc    Update gallery item metadata (admin/committee � ownership check)
  *          Does NOT replace the actual uploaded file/media.
  */
 export const updateGalleryItem = async (req, res, next) => {
@@ -185,7 +185,7 @@ export const updateGalleryItem = async (req, res, next) => {
         ) {
             return res.status(403).json({
                 success: false,
-                message: 'Forbidden — you can only update your own uploads',
+                message: 'Forbidden � you can only update your own uploads',
             });
         }
 
@@ -212,7 +212,7 @@ export const updateGalleryItem = async (req, res, next) => {
 
 /**
  * @route   DELETE /api/gallery/:id
- * @desc    Delete gallery item + Cloudinary asset (admin/committee — ownership check)
+ * @desc    Delete gallery item + Cloudinary asset (admin/committee � ownership check)
  */
 export const deleteGalleryItem = async (req, res, next) => {
     try {
@@ -229,7 +229,7 @@ export const deleteGalleryItem = async (req, res, next) => {
         ) {
             return res.status(403).json({
                 success: false,
-                message: 'Forbidden — you can only delete your own uploads',
+                message: 'Forbidden � you can only delete your own uploads',
             });
         }
 
@@ -242,7 +242,7 @@ export const deleteGalleryItem = async (req, res, next) => {
                 });
             } catch (cloudError) {
                 console.warn(
-                    `⚠️  Cloudinary deletion failed for publicId "${item.cloudinaryPublicId}":`,
+                    `??  Cloudinary deletion failed for publicId "${item.cloudinaryPublicId}":`,
                     cloudError.message
                 );
                 // Continue to delete MongoDB document regardless

@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import User from '../models/User.js';
 import Member from '../models/Member.js';
+import Volunteer from '../models/Volunteer.js';
+import CommitteeMember from '../models/CommitteeMember.js';
 
 // Load env vars
 const __filename = fileURLToPath(import.meta.url);
@@ -65,6 +67,12 @@ const seedUsers = async () => {
 
                 // All users need a linked Member document per Phase 1 architecture
                 await Member.create({ user: user._id });
+
+                if (u.role === 'volunteer') {
+                    await Volunteer.create({ user: user._id, status: 'approved', approvedAt: new Date() });
+                } else if (u.role === 'committee') {
+                    await CommitteeMember.create({ user: user._id, designation: 'Committee Member', permissions: ['events', 'gallery'] });
+                }
             } catch (innerError) {
                 fs.writeFileSync('innerError.log', String(innerError.stack || innerError));
                 throw innerError;

@@ -1,4 +1,4 @@
-ï»¿import Event from '../models/Event.js';
+import Event from '../models/Event.js';
 import EventRegistration from '../models/EventRegistration.js';
 import { validationResult } from 'express-validator';
 import mongoose from 'mongoose';
@@ -169,7 +169,7 @@ export const updateEvent = async (req, res, next) => {
 
         // Ownership check for committee members
         if (req.user.role === 'committee' && event.createdBy.toString() !== req.user.id) {
-            return res.status(403).json({ success: false, message: 'Forbidden â€” you can only update your own events' });
+            return res.status(403).json({ success: false, message: 'Forbidden — you can only update your own events' });
         }
 
         // Mass Assignment Protection: explicitly pick allowed fields to prevent committee members injecting `status`, `createdBy`, etc.
@@ -339,7 +339,7 @@ export const getEventRegistrations = async (req, res, next) => {
 
         // Committee ownership check
         if (req.user.role === 'committee' && event.createdBy.toString() !== req.user.id) {
-            return res.status(403).json({ success: false, message: 'Forbidden â€” you can only view registrations for your own events' });
+            return res.status(403).json({ success: false, message: 'Forbidden — you can only view registrations for your own events' });
         }
 
         const registrations = await EventRegistration.find({ event: eventId })
