@@ -1,3 +1,5 @@
+import React from 'react';
+
 const sizeMap = {
     sm: { container: 'w-8 h-8', text: 'text-xs', dot: 'w-2.5 h-2.5' },
     md: { container: 'w-10 h-10', text: 'text-sm', dot: 'w-3 h-3' },
@@ -6,7 +8,7 @@ const sizeMap = {
 
 const statusColors = {
     online: 'bg-green-500',
-    offline: 'bg-gray-400',
+    offline: 'bg-gray-400 dark:bg-gray-500',
 };
 
 const getInitials = (name) => {
@@ -38,7 +40,7 @@ const Avatar = ({
                 />
             ) : (
                 <div
-                    className={`${s.container} rounded-full flex items-center justify-center bg-primary text-white ${s.text} font-heading font-semibold`}
+                    className={`${s.container} rounded-full flex items-center justify-center bg-emerald-700 dark:bg-emerald-600 text-white ${s.text} font-bold`}
                 >
                     {getInitials(name)}
                 </div>
@@ -46,7 +48,7 @@ const Avatar = ({
 
             {status && (
                 <span
-                    className={`absolute bottom-0 right-0 ${s.dot} ${statusColors[status] || statusColors.offline} rounded-full ring-2 ring-white dark:ring-[var(--color-surface)]`}
+                    className={`absolute bottom-0 right-0 ${s.dot} ${statusColors[status] || statusColors.offline} rounded-full ring-2 ring-white dark:ring-slate-800`}
                 />
             )}
         </div>

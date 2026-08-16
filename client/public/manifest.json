@@ -1,9 +1,16 @@
 {
-    "short_name": "Faizan E Madina",
-    "name": "Faizan E Madina Sunni Masjid",
-    "icons": [],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#1a5e2a",
-    "background_color": "#ffffff"
+  "short_name": "Faizan E Madina",
+  "name": "Faizan E Madina Sunni Masjid",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1a5e2a",
+  "background_color": "#ffffff"
 }
