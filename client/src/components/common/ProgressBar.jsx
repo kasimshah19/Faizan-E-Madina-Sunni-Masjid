@@ -1,13 +1,16 @@
+import React from 'react';
+
 const variantStyles = {
-    gold: 'bg-accent',
-    green: 'bg-primary',
+    gold: 'bg-amber-500',
+    green: 'bg-[#0F5132] dark:bg-emerald-500',
+    emerald: 'bg-emerald-500',
 };
 
 const ProgressBar = ({
     value = 0,
     max = 100,
     label,
-    variant = 'gold',
+    variant = 'green',
 }) => {
     const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
@@ -15,24 +18,15 @@ const ProgressBar = ({
         <div className="w-full">
             {label && (
                 <div className="flex items-center justify-between mb-2">
-                    <span
-                        className="text-sm font-body font-medium"
-                        style={{ color: 'var(--color-text-primary)' }}
-                    >
+                    <span className="text-sm font-body font-medium text-gray-900 dark:text-white">
                         {label}
                     </span>
-                    <span
-                        className="text-sm font-body font-semibold"
-                        style={{ color: 'var(--color-text-secondary)' }}
-                    >
+                    <span className="text-sm font-body font-semibold text-gray-500 dark:text-gray-400">
                         {Math.round(percentage)}%
                     </span>
                 </div>
             )}
-            <div
-                className="w-full h-2.5 rounded-full overflow-hidden"
-                style={{ backgroundColor: 'var(--color-surface-alt)' }}
-            >
+            <div className="w-full h-3 rounded-full overflow-hidden bg-gray-200 dark:bg-slate-700 shadow-inner">
                 <div
                     className={`h-full rounded-full transition-all duration-700 ease-out ${variantStyles[variant]}`}
                     style={{ width: `${percentage}%` }}
