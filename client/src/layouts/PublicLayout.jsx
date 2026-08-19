@@ -1,5 +1,6 @@
-﻿import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 const PublicLayout = () => {
   return (
@@ -10,6 +11,7 @@ const PublicLayout = () => {
         bg-[#f7f8f4] text-[#163c31]
         dark:bg-slate-950 dark:text-white
         transition-colors duration-300
+        flex flex-col
       "
     >
       <Header />
@@ -24,6 +26,8 @@ const PublicLayout = () => {
       >
         <Outlet />
       </main>
+
+      <Footer />
     </div>
   );
 };

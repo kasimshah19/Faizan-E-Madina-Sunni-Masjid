@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -13,7 +13,7 @@ import {
   HiOutlineEyeOff,
 } from 'react-icons/hi';
 
-import { loginUser } from '../../redux/slices/authSlice';
+import { loginUser, setAccessToken } from '../../redux/slices/authSlice';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 
@@ -85,6 +85,27 @@ const Login = () => {
         }, 2000);
       }
     }
+  };
+
+  // ── Dev-only quick login ──
+  const handleDevLogin = (role) => {
+    const mockUsers = {
+      admin: { id: 'dev-admin-001', fullName: 'Dev Admin', email: 'admin@dev.local', role: 'admin' },
+      member: { id: 'dev-member-001', fullName: 'Dev Member', email: 'member@dev.local', role: 'member' },
+      volunteer: { id: 'dev-volunteer-001', fullName: 'Dev Volunteer', email: 'volunteer@dev.local', role: 'volunteer' },
+    };
+
+    // Dispatch directly to Redux store — bypasses API entirely
+    dispatch({
+      type: 'auth/login/fulfilled',
+      payload: {
+        accessToken: 'dev-mock-token-' + role,
+        user: mockUsers[role],
+      },
+    });
+
+    toast.success(`Dev login as ${role}`);
+    navigate(getRoleRedirect(role), { replace: true });
   };
 
   return (
@@ -190,6 +211,40 @@ const Login = () => {
             </p>
           </div>
 
+          {/* ── Dev Quick Login (only in development) ── */}
+          {import.meta.env.DEV && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="mt-4 rounded-2xl border border-dashed border-amber-300 bg-amber-50/60 p-4 dark:border-amber-700 dark:bg-amber-950/30"
+            >
+              <p className="mb-3 text-center text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                ⚡ Dev Quick Login
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleDevLogin('admin')}
+                  className="flex-1 rounded-xl bg-primary px-3 py-2.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  Admin
+                </button>
+                <button
+                  onClick={() => handleDevLogin('member')}
+                  className="flex-1 rounded-xl bg-blue-600 px-3 py-2.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  Member
+                </button>
+                <button
+                  onClick={() => handleDevLogin('volunteer')}
+                  className="flex-1 rounded-xl bg-violet-600 px-3 py-2.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  Volunteer
+                </button>
+              </div>
+            </motion.div>
+          )}
+
           <p className="mt-5 text-center text-[11px] font-medium text-[#8b9792] dark:text-slate-500">
             Faizan E Madina Sunni Masjid
           </p>
@@ -199,4 +254,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login;
